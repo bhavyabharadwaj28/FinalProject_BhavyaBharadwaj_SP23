@@ -1,3 +1,4 @@
+let song;
 let cover;
 let picker = 0;
 let font;
@@ -40,10 +41,12 @@ function preload() {
   option5bottom = loadImage("data/option5bottom.png");
   option6top = loadImage("data/option6top.png");
   option6bottom = loadImage("data/option6bottom.png");
-  option7top = loadImage("data/option6top.png");
+  option7top = loadImage("data/option7top.png");
   option7bottom = loadImage("data/option7bottom.png");
   option8top = loadImage("data/option8top.png");
   option8bottom = loadImage("data/option8bottom.png");
+  song = loadSound("data/Ariana Grande - 7 rings (Audio).mp3");
+  soundFormats("mp3");
  
 }
 function setup() {
@@ -53,6 +56,7 @@ function setup() {
   slider.position(0, 900);
   slider.style("width", "1000px");
   slider.input(outfitCheck);
+  song.play();
 }
 
 function draw() {
@@ -90,8 +94,11 @@ function showImage() {
     text("Start", 298, 510);
   } else if (picker == 1) {
     image(interface, 0, 0);
-    showRestart();
-    showDressMe();
+    //showRestart();
+   // showDressMe();
+    let dressMeButton = createButton("Dress Me");
+    dressMeButton.position(850, 800);
+    dressMeButton.mousePressed(selectRandomOutfit);
     let topButton = createButton("Select Top");
     topButton.position(100, 250);
     topButton.mousePressed(() => {
@@ -129,9 +136,7 @@ function showImage() {
   }
 }
 
-function showPerfect(){
- image(perfect,100,100); 
-}
+
 
 
 function mousePressed() {
@@ -139,22 +144,12 @@ function mousePressed() {
     picker = 1;
   }
 }
-function showRestart() {
-  stroke(0);
-  fill("#D7A1A2");
-  rect(50, 795, 100, 75, 20);
-  fill(0);
-  textFont(font, 20);
-  text("Restart", 65, 835);
-}
 
-function showDressMe() {
-  stroke(0);
-  fill("#D7A1A2");
-  rect(850, 795, 100, 74, 20);
-  fill(0);
-  textFont(font, 20);
-  text("Dress Me", 855, 835);
-}
-
-//function keyPressed() {}
+function selectRandomOutfit() {
+  // if (selectedItems.length < 100 && selectedItems2.length < 100) {
+    let randomTop = selectedItems[random(100)];
+    let randomBottom = selectedItems2[random(100)];
+    outfit = [randomTop, randomBottom];
+    slider.value(0);
+  }
+// }
